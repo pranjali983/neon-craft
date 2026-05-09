@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonCraft 3D Engine</title>
+    <style>
+        :root {
+            --neon-border: #00f3ff;
+            --neon-glow: rgba(0, 243, 255, 0.5);
+            --cube-size: 150px;
+        }
+
+        body {
+            margin: 0;
+            background: #050505;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px; /* Essential for 3D */
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--neon-border);
+        }
+
+        /* The 3D Scene */
+        .scene {
+            width: var(--cube-size);
+            height: var(--cube-size);
+            transform-style: preserve-3d;
+            animation: rotateCube 10s infinite linear;
+        }
+
+        @keyframes rotateCube {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        /* Cube Faces */
+        .cube {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .face {
+            position: absolute;
+            width: var(--cube-size);
+            height: var(--cube-size);
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-border);
+            box-shadow: inset 0 0 20px var(--neon-glow), 0 0 15px var(--neon-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Positioning each face in 3D space */
+        .front  { transform: translateZ(calc(var(--cube-size) / 2)); }
+        .back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2)); }
+        .right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2)); border-color: #ff00ff; box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5); }
+        .left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2)); border-color: #ff00ff; box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5); }
+        .top    { transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+
+        .ui-text {
+            margin-top: 100px;
+            text-align: center;
+            text-shadow: 0 0 10px var(--neon-border);
+        }
+
+        .grid-floor {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 50%;
+            background-image: linear-gradient(var(--neon-glow) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--neon-glow) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotateX(75deg);
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-floor"></div>
+
+    <div class="scene">
+        <div class="cube">
+            <div class="face front">NEON</div>
+            <div class="face back">CRAFT</div>
+            <div class="face right">CORE</div>
+            <div class="face left">DATA</div>
+            <div class="face top">SYSTEM</div>
+            <div class="face bottom">VOID</div>
+        </div>
+    </div>
+
+    <div class="ui-text">
+        <h1>NEONCRAFT ENGINE</h1>
+        <p>3D CSS Rendering: ACTIVE</p>
+    </div>
+
+</body>
+</html>
